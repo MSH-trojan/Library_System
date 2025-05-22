@@ -188,6 +188,7 @@ public class Library_System extends JFrame {
         JButton userLoginBtn = new JButton("Login");
         JLabel registerLabelUser = new JLabel("Not registered? Click below:");
         JButton registerUserBtn = new JButton("Register");
+        registerUserBtn.addActionListener(e -> dynamicCard.show(dynamicPanel, "userRegister"));
 
         userPanel.add(new JLabel("Username:"));
         userPanel.add(userEmail);
@@ -207,6 +208,51 @@ public class Library_System extends JFrame {
         dynamicPanel.add(welcomePanel, "welcome");
         dynamicPanel.add(adminPanel, "adminLogin");
         dynamicPanel.add(userPanel, "userLogin");
+     // --- User Registration Panel ---
+        JPanel userRegisterPanel = new JPanel();
+        userRegisterPanel.setLayout(new BoxLayout(userRegisterPanel, BoxLayout.Y_AXIS));
+        userRegisterPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+
+        JTextField firstNameField = new JTextField();
+        JTextField lastNameField = new JTextField();
+        JTextField usernameRegField = new JTextField();
+        JPasswordField passwordRegField = new JPasswordField();
+        JPasswordField confirmPasswordField = new JPasswordField();
+        JTextField emailField = new JTextField();
+        JTextField phoneField = new JTextField();
+
+        JButton registerConfirmBtn = new JButton("Register");
+        JButton registerBackBtn = new JButton("← Back");
+
+        registerConfirmBtn.addActionListener(e -> {
+            String password = new String(passwordRegField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
+
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(null, "Passwords do not match!");
+                return;
+            }
+
+            // TODO: Add DB insert logic here
+            JOptionPane.showMessageDialog(null, "Registration successful!");
+        });
+
+        registerBackBtn.addActionListener(e -> dynamicCard.show(dynamicPanel, "userLogin"));
+
+        userRegisterPanel.add(new JLabel("First Name:")); userRegisterPanel.add(firstNameField);
+        userRegisterPanel.add(new JLabel("Last Name:")); userRegisterPanel.add(lastNameField);
+        userRegisterPanel.add(new JLabel("Username:")); userRegisterPanel.add(usernameRegField);
+        userRegisterPanel.add(new JLabel("Password:")); userRegisterPanel.add(passwordRegField);
+        userRegisterPanel.add(new JLabel("Confirm Password:")); userRegisterPanel.add(confirmPasswordField);
+        userRegisterPanel.add(new JLabel("Email:")); userRegisterPanel.add(emailField);
+        userRegisterPanel.add(new JLabel("Phone (+1 123-456-7890):")); userRegisterPanel.add(phoneField);
+        userRegisterPanel.add(Box.createVerticalStrut(10));
+        userRegisterPanel.add(registerConfirmBtn);
+        userRegisterPanel.add(Box.createVerticalStrut(5));
+        userRegisterPanel.add(registerBackBtn);
+
+        dynamicPanel.add(userRegisterPanel, "userRegister");
+
         JPanel adminMenuPanel = new JPanel();
         adminMenuPanel.setLayout(new BoxLayout(adminMenuPanel, BoxLayout.Y_AXIS));
         adminMenuPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
